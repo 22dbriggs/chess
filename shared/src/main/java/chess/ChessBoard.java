@@ -13,6 +13,9 @@ public class ChessBoard {
     public ChessBoard() {
         resetBoard();
     }
+    public ChessBoard(ChessPiece[][] board){
+        this.board = board;
+    }
 
     /**
      * Adds a chess piece to the chessboard
@@ -41,6 +44,14 @@ public class ChessBoard {
      */
     public void resetBoard() {
 
-
     }
+
+    public ChessPiece[][] getBoard() {
+        return board;
+    }
+
+    public void setBoard(ChessPiece[][] board) {
+        this.board = board;
+    }
+
 }

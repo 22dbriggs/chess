@@ -1,6 +1,8 @@
 package chess;
 
+import javax.swing.text.Position;
 import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -13,6 +15,7 @@ public class ChessPiece {
 
     private ChessGame.TeamColor pieceColor;
     private ChessPiece.PieceType type;
+
 
     public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type) {
         this.pieceColor = pieceColor;
@@ -53,9 +56,41 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
+        Collection<ChessMove> moves = new ArrayList<>();
+        int r = myPosition.getRow();
+        int c = myPosition.getColumn();
+        switch(this.type){
+            case KING: {
 
+            } break;
+            case QUEEN: {
+
+            } break;
+            case ROOK: {
+
+            } break;
+            case BISHOP: {
+
+            } break;
+            case KNIGHT: {
+
+            } break;
+            case PAWN: {
+                if(this.pieceColor == ChessGame.TeamColor.WHITE){
+                    var tryMove = new ChessPosition(r, c + 1);
+                    if(board.getPiece(tryMove) == null){
+                        moves.add(new ChessMove(myPosition, tryMove, null));
+                    }
+                }
+                if(this.pieceColor == ChessGame.TeamColor.BLACK){
+
+                }
+            } break;
+        }
         throw new RuntimeException("Not implemented");
     }
+
+
 
     @Override
     public boolean equals(Object o) {

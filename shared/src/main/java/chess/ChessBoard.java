@@ -15,7 +15,6 @@ public class ChessBoard {
 
     public ChessBoard() {
         board = new ChessPiece[8][8];
-        resetBoard();
     }
     public ChessBoard(ChessPiece[][] board){
         this.board = board;
@@ -40,6 +39,23 @@ public class ChessBoard {
      */
     public ChessPiece getPiece(ChessPosition position) {
         return this.board[position.getRow() - 1][position.getColumn() - 1];
+    }
+
+    public ChessGame.TeamColor getColor(ChessPosition pos){
+        if(inBounds(pos)){
+            if(getPiece(pos) == null){
+                return null;
+            } else {
+                System.out.println("THERE ARE NO BLACK PIECES.");
+                return getPiece(pos).getTeamColor();
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public boolean inBounds(ChessPosition pos){
+        return pos.getRow() >= 1 && pos.getColumn() >= 1 && pos.getRow() <= 8 && pos.getColumn() <= 8;
     }
 
     /**
@@ -91,9 +107,28 @@ public class ChessBoard {
 
     @Override
     public String toString() {
-        return "ChessBoard{" +
-                "board=" + Arrays.toString(board) +
-                '}';
+        StringBuilder boardStr = new StringBuilder();
+        for(int row = 1; row <= 8; row++){
+            boardStr.append("|");
+            for(int col = 1; col <= 8; col++){
+                var piece = getPiece(new ChessPosition(row, col));
+                if(piece != null){
+                    switch(piece.getPieceType()){
+                        case ChessPiece.PieceType.KING: boardStr.append(piece.getTeamColor() == ChessGame.TeamColor.WHITE ? "K" : "k"); break;
+                        case ChessPiece.PieceType.QUEEN: boardStr.append(piece.getTeamColor() == ChessGame.TeamColor.WHITE ? "Q" : "q"); break;
+                        case ChessPiece.PieceType.ROOK: boardStr.append(piece.getTeamColor() == ChessGame.TeamColor.WHITE ? "R" : "r"); break;
+                        case ChessPiece.PieceType.BISHOP: boardStr.append(piece.getTeamColor() == ChessGame.TeamColor.WHITE ? "B" : "b"); break;
+                        case ChessPiece.PieceType.KNIGHT: boardStr.append(piece.getTeamColor() == ChessGame.TeamColor.WHITE ? "N" : "n"); break;
+                        case ChessPiece.PieceType.PAWN: boardStr.append(piece.getTeamColor() == ChessGame.TeamColor.WHITE ? "P" : "p"); break;
+                    }
+                } else {
+                    boardStr.append(" ");
+                }
+                boardStr.append("|");
+            }
+            boardStr.append("\n");
+        }
+        return boardStr.toString();
     }
 
     @Override

@@ -60,7 +60,9 @@ public class ChessPiece {
         int r = myPosition.getRow();
         int c = myPosition.getColumn();
         var team = pieceColor;
+        var otherTeam = team == ChessGame.TeamColor.WHITE ? ChessGame.TeamColor.WHITE : ChessGame.TeamColor.BLACK;
         ChessPosition newPos;
+        int moveC, moveR = 0;
         switch(this.type){
             case KING: {
                 newPos = new ChessPosition(r + 1, c);
@@ -97,13 +99,211 @@ public class ChessPiece {
                 }
             } break;
             case QUEEN: {
-
+                // go upleft
+                moveR = 1;
+                moveC = -1;
+                newPos = new ChessPosition(r + moveR, c + moveC);
+                while(board.getColor(newPos) != team && board.inBounds(newPos)){
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if(board.getColor(newPos) != null){
+                        break;
+                    }
+                    moveC--;
+                    moveR++;
+                    newPos = new ChessPosition(r + moveR, c + moveC);
+                }
+                // go upright
+                moveR = 1;
+                moveC = 1;
+                newPos = new ChessPosition(r + moveR, c + moveC);
+                while(board.getColor(newPos) != team && board.inBounds(newPos)){
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if(board.getColor(newPos) != null){
+                        break;
+                    }
+                    moveC++;
+                    moveR++;
+                    newPos = new ChessPosition(r + moveR, c + moveC);
+                }
+                // go downleft
+                moveR = -1;
+                moveC = -1;
+                newPos = new ChessPosition(r + moveR, c + moveC);
+                while(board.getColor(newPos) != team && board.inBounds(newPos)){
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if(board.getColor(newPos) != null){
+                        break;
+                    }
+                    moveC--;
+                    moveR--;
+                    newPos = new ChessPosition(r + moveR, c + moveC);
+                }
+                // go downright
+                moveR = -1;
+                moveC = 1;
+                newPos = new ChessPosition(r + moveR, c + moveC);
+                while(board.getColor(newPos) != team && board.inBounds(newPos)){
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if(board.getColor(newPos) != null){
+                        break;
+                    }
+                    moveC++;
+                    moveR--;
+                    newPos = new ChessPosition(r + moveR, c + moveC);
+                }
+                // Go right
+                moveR = 0;
+                moveC = 1;
+                newPos = new ChessPosition(r + moveR, c + moveC);
+                while(board.getColor(newPos) != team && board.inBounds(newPos)){
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if(board.getColor(newPos) != null){
+                        break;
+                    }
+                    moveC++;
+                    newPos = new ChessPosition(r + moveR, c + moveC);
+                }
+                // Go left
+                moveR = 0;
+                moveC = -1;
+                newPos = new ChessPosition(r + moveR, c + moveC);
+                while(board.getColor(newPos) != team && board.inBounds(newPos)){
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if(board.getColor(newPos) != null){
+                        break;
+                    }
+                    moveC--;
+                    newPos = new ChessPosition(r + moveR, c + moveC);
+                }
+                // Go up
+                moveR = 1;
+                moveC = 0;
+                newPos = new ChessPosition(r + moveR, c + moveC);
+                while(board.getColor(newPos) != team && board.inBounds(newPos)){
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if(board.getColor(newPos) != null){
+                        break;
+                    }
+                    moveR++;
+                    newPos = new ChessPosition(r + moveR, c + moveC);
+                }
+                // Go down
+                moveR = -1;
+                moveC = 0;
+                newPos = new ChessPosition(r + moveR, c + moveC);
+                while(board.getColor(newPos) != team && board.inBounds(newPos)){
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if(board.getColor(newPos) != null){
+                        break;
+                    }
+                    moveR--;
+                    newPos = new ChessPosition(r + moveR, c + moveC);
+                }
             } break;
             case ROOK: {
+                // Go right
+                moveR = 0;
+                moveC = 1;
+                newPos = new ChessPosition(r + moveR, c + moveC);
+                while(board.getColor(newPos) != team && board.inBounds(newPos)){
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if(board.getColor(newPos) != null){
+                        break;
+                    }
+                    moveC++;
+                    newPos = new ChessPosition(r + moveR, c + moveC);
+                }
+                // Go left
+                moveR = 0;
+                moveC = -1;
+                newPos = new ChessPosition(r + moveR, c + moveC);
+                while(board.getColor(newPos) != team && board.inBounds(newPos)){
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if(board.getColor(newPos) != null){
+                        break;
+                    }
+                    moveC--;
+                    newPos = new ChessPosition(r + moveR, c + moveC);
+                }
+                // Go up
+                moveR = 1;
+                moveC = 0;
+                newPos = new ChessPosition(r + moveR, c + moveC);
+                while(board.getColor(newPos) != team && board.inBounds(newPos)){
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if(board.getColor(newPos) != null){
+                        break;
+                    }
+                    moveR++;
+                    newPos = new ChessPosition(r + moveR, c + moveC);
+                }
+                // Go down
+                moveR = -1;
+                moveC = 0;
+                newPos = new ChessPosition(r + moveR, c + moveC);
+                while(board.getColor(newPos) != team && board.inBounds(newPos)){
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if(board.getColor(newPos) != null){
+                        break;
+                    }
+                    moveR--;
+                    newPos = new ChessPosition(r + moveR, c + moveC);
+                }
 
             } break;
             case BISHOP: {
-
+                // go upleft
+                moveR = 1;
+                moveC = -1;
+                newPos = new ChessPosition(r + moveR, c + moveC);
+                while(board.getColor(newPos) != team && board.inBounds(newPos)){
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if(board.getColor(newPos) != null){
+                        break;
+                    }
+                    moveC--;
+                    moveR++;
+                    newPos = new ChessPosition(r + moveR, c + moveC);
+                }
+                // go upright
+                moveR = 1;
+                moveC = 1;
+                newPos = new ChessPosition(r + moveR, c + moveC);
+                while(board.getColor(newPos) != team && board.inBounds(newPos)){
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if(board.getColor(newPos) != null){
+                        break;
+                    }
+                    moveC++;
+                    moveR++;
+                    newPos = new ChessPosition(r + moveR, c + moveC);
+                }
+                // go downleft
+                moveR = -1;
+                moveC = -1;
+                newPos = new ChessPosition(r + moveR, c + moveC);
+                while(board.getColor(newPos) != team && board.inBounds(newPos)){
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if(board.getColor(newPos) != null){
+                        break;
+                    }
+                    moveC--;
+                    moveR--;
+                    newPos = new ChessPosition(r + moveR, c + moveC);
+                }
+                // go downright
+                moveR = -1;
+                moveC = 1;
+                newPos = new ChessPosition(r + moveR, c + moveC);
+                while(board.getColor(newPos) != team && board.inBounds(newPos)){
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if(board.getColor(newPos) != null){
+                        break;
+                    }
+                    moveC++;
+                    moveR--;
+                    newPos = new ChessPosition(r + moveR, c + moveC);
+                }
             } break;
             case KNIGHT: {
                 newPos = new ChessPosition(r + 2, c + 1);

@@ -46,7 +46,6 @@ public class ChessBoard {
             if(getPiece(pos) == null){
                 return null;
             } else {
-                System.out.println("THERE ARE NO BLACK PIECES.");
                 return getPiece(pos).getTeamColor();
             }
         } else {

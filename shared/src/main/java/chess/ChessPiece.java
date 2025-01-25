@@ -423,7 +423,7 @@ public class ChessPiece {
                             }
                         }
                     }
-                    // Right Diagona
+                    // Right Diagonal
                     newPos = new ChessPosition(r - 1, c + 1);
                     if(board.getColor(newPos) != null && board.inBounds(newPos)){
                         if(board.getColor(newPos) == ChessGame.TeamColor.WHITE){

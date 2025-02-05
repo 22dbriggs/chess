@@ -1,5 +1,6 @@
 package chess;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -14,10 +15,13 @@ public class ChessGame {
     private ChessBoard board;
 
     public ChessGame() {
-        this.turn = TeamColor.WHITE;
+        this.setTeamTurn(TeamColor.WHITE);
         this.board = new ChessBoard();
+        this.board.resetBoard();
     }
-
+    public void p(String s){
+        System.out.println(s);
+    }
     /**
      * @return Which team's turn it is
      */
@@ -50,7 +54,23 @@ public class ChessGame {
      * startPosition
      */
     public Collection<ChessMove> validMoves(ChessPosition startPosition) {
-        throw new RuntimeException("Not implemented");
+        if(board.getColor(startPosition) == null){
+            return null;
+        }
+        var piece = board.getPiece(startPosition);
+        var moves = piece.pieceMoves(this.board, startPosition);
+        var team = piece.getTeamColor();
+        for(ChessMove move : moves){
+            board.addPiece(startPosition, null);
+            var deadPiece = board.getPiece(move.getEndPosition());
+            board.addPiece(move.getEndPosition(), piece);
+            if(this.isInCheck(team)){
+                moves.remove(move);
+            }
+            board.addPiece(startPosition, piece);
+            board.addPiece(move.getEndPosition(), deadPiece);
+        }
+        return moves;
     }
 
     /**
@@ -70,7 +90,22 @@ public class ChessGame {
      * @return True if the specified team is in check
      */
     public boolean isInCheck(TeamColor teamColor) {
-        throw new RuntimeException("Not implemented");
+        var kingPos = board.findKing(teamColor);
+        for(int r = 0; r < 8; r++){
+            for(int c = 0; c < 8; c++){
+                ChessPosition pos = new ChessPosition(r, c);
+                if(board.getColor(pos) != teamColor && board.getColor(pos) != null){
+                    var piece = board.getPiece(pos);
+                    Collection<ChessMove> moves = piece.pieceMoves(this.board, pos);
+                    for(ChessMove move : moves){
+                        if(move.getEndPosition().equals(kingPos)){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -108,7 +143,7 @@ public class ChessGame {
      *
      * @return the chessboard
      */
-    public ChessPiece[][] getBoard() {
-        return this.board.getBoard();
+    public ChessBoard getBoard() {
+        return this.board;
     }
 }

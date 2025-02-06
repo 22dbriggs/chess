@@ -75,7 +75,6 @@ public class ChessBoard {
     public boolean kingsAdjacent(){
         var whitePos = findKing(ChessGame.TeamColor.WHITE);
         var blackPos = findKing(ChessGame.TeamColor.BLACK);
-        System.out.println(whitePos.toString() + "\n" + blackPos.toString());
         return (Math.abs(whitePos.getRow() - blackPos.getRow()) <= 1 && Math.abs(whitePos.getColumn() - blackPos.getColumn()) <= 1);
     }
     /**

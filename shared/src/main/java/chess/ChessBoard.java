@@ -59,8 +59,8 @@ public class ChessBoard {
     }
 
     public ChessPosition findKing(ChessGame.TeamColor team){
-        for(int r = 0; r < 8; r++){
-            for(int c = 0; c < 8; c++){
+        for(int r = 1; r <= 8; r++){
+            for(int c = 1; c <= 8; c++){
                 ChessPosition pos = new ChessPosition(r, c);
                 if(getColor(pos) == team){
                     if(getPiece(pos).getPieceType() == ChessPiece.PieceType.KING){
@@ -70,6 +70,13 @@ public class ChessBoard {
             }
         }
         return new ChessPosition(0, 0);
+    }
+
+    public boolean kingsAdjacent(){
+        var whitePos = findKing(ChessGame.TeamColor.WHITE);
+        var blackPos = findKing(ChessGame.TeamColor.BLACK);
+        System.out.println(whitePos.toString() + "\n" + blackPos.toString());
+        return (Math.abs(whitePos.getRow() - blackPos.getRow()) <= 1 && Math.abs(whitePos.getColumn() - blackPos.getColumn()) <= 1);
     }
     /**
      * Sets the board to the default starting board

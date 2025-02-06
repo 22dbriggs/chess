@@ -59,18 +59,19 @@ public class ChessGame {
         }
         var piece = board.getPiece(startPosition);
         var moves = piece.pieceMoves(this.board, startPosition);
+        Collection<ChessMove> newMoves = new ArrayList<>();
         var team = piece.getTeamColor();
         for(ChessMove move : moves){
             board.addPiece(startPosition, null);
             var deadPiece = board.getPiece(move.getEndPosition());
             board.addPiece(move.getEndPosition(), piece);
-            if(this.isInCheck(team)){
-                moves.remove(move);
+            if(!this.isInCheck(team)){
+                newMoves.add(move);
             }
             board.addPiece(startPosition, piece);
             board.addPiece(move.getEndPosition(), deadPiece);
         }
-        return moves;
+        return newMoves;
     }
 
     /**
@@ -115,7 +116,20 @@ public class ChessGame {
      * @return True if the specified team is in checkmate
      */
     public boolean isInCheckmate(TeamColor teamColor) {
-        throw new RuntimeException("Not implemented");
+        for(int r = 0; r < 8; r++){
+            for(int c = 0; c < 8; c++){
+                var pos = new ChessPosition(r, c);
+                if(board.getColor(pos) == teamColor){
+                    if(!validMoves(pos).isEmpty()){
+                        for(var move : validMoves(pos)){
+                            p(move.toString());
+                        }
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     /**

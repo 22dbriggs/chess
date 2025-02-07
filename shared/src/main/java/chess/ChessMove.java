@@ -12,12 +12,22 @@ public class ChessMove {
 
     private ChessPosition startPosition, endPosition;
     private ChessPiece.PieceType promotionPiece;
+    private boolean passant;
 
     public ChessMove(ChessPosition startPosition, ChessPosition endPosition,
                      ChessPiece.PieceType promotionPiece) {
         this.startPosition = startPosition;
         this.endPosition = endPosition;
         this.promotionPiece = promotionPiece;
+        this.passant = false;
+    }
+
+    public ChessMove(ChessPosition startPosition, ChessPosition endPosition,
+                     ChessPiece.PieceType promotionPiece, boolean passant) {
+        this.startPosition = startPosition;
+        this.endPosition = endPosition;
+        this.promotionPiece = promotionPiece;
+        this.passant = passant;
     }
 
     /**
@@ -42,6 +52,10 @@ public class ChessMove {
      */
     public ChessPiece.PieceType getPromotionPiece() {
         return this.promotionPiece;
+    }
+
+    public boolean isPassant(){
+        return this.passant;
     }
 
     @Override

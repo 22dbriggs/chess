@@ -389,6 +389,13 @@ public class ChessPiece {
                     newPos = new ChessPosition(r + 2, c);
                     if(r == 2){
                         if(board.getPiece(new ChessPosition(r + 1, c)) == null && board.getPiece(newPos) == null){
+                            moves.add(new ChessMove(myPosition, newPos, null, true));
+                        }
+                    }
+                    // En Passant
+                    if(board.PassantPos() != null){
+                        newPos = new ChessPosition(board.PassantPos().getRow(), board.PassantPos().getColumn());
+                        if(r == 5 && (c == newPos.getColumn() - 1 || c == newPos.getColumn() + 1)){
                             moves.add(new ChessMove(myPosition, newPos, null));
                         }
                     }
@@ -442,7 +449,7 @@ public class ChessPiece {
                     newPos = new ChessPosition(r - 2, c);
                     if(r == 7){
                         if(board.getPiece(new ChessPosition(r - 1, c)) == null && board.getPiece(newPos) == null){
-                            moves.add(new ChessMove(myPosition, newPos, null));
+                            moves.add(new ChessMove(myPosition, newPos, null, true));
                         }
                     }
                 }

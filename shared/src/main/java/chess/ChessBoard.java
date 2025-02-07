@@ -1,6 +1,7 @@
 package chess;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -13,6 +14,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 public class ChessBoard {
 
     private ChessPiece[][] board;
+    private ChessPosition enPassantTarget = null;
 
     public ChessBoard() {
         board = new ChessPiece[8][8];
@@ -122,6 +124,14 @@ public class ChessBoard {
 
     public void setBoard(ChessPiece[][] board) {
         this.board = board;
+    }
+
+    public ChessPosition PassantPos(){
+        return enPassantTarget;
+    }
+
+    public void setPassant(ChessPosition pos){
+        this.enPassantTarget = pos;
     }
 
     @Override

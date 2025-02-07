@@ -92,6 +92,12 @@ public class ChessGame {
             throw new InvalidMoveException("Invalid Move");
         }
         else {
+            board.setPassant(null);
+            if(move.isPassant()){
+                int row = (move.getStartPosition().getRow() + move.getEndPosition().getRow()) / 2;
+                int col = move.getEndPosition().getColumn();
+                board.setPassant(new ChessPosition(row, col));
+            }
             var movingPiece = new ChessPiece(getTeamTurn(), move.getPromotionPiece() == null ? board.getPiece(move.getStartPosition()).getPieceType() : move.getPromotionPiece());
             board.addPiece(move.getStartPosition(), null);
             board.addPiece(move.getEndPosition(), movingPiece);

@@ -388,15 +388,17 @@ public class ChessPiece {
                     // Forward 2
                     newPos = new ChessPosition(r + 2, c);
                     if(r == 2){
+                        System.out.println("WHITE move 2");
                         if(board.getPiece(new ChessPosition(r + 1, c)) == null && board.getPiece(newPos) == null){
-                            moves.add(new ChessMove(myPosition, newPos, null, true));
+                            moves.add(new ChessMove(myPosition, newPos, null, true, false));
                         }
                     }
                     // En Passant
                     if(board.PassantPos() != null){
                         newPos = new ChessPosition(board.PassantPos().getRow(), board.PassantPos().getColumn());
                         if(r == 5 && (c == newPos.getColumn() - 1 || c == newPos.getColumn() + 1)){
-                            moves.add(new ChessMove(myPosition, newPos, null));
+                            System.out.println("WHITE WHAAA");
+                            moves.add(new ChessMove(myPosition, newPos, null, false, true));
                         }
                     }
                 }
@@ -449,7 +451,15 @@ public class ChessPiece {
                     newPos = new ChessPosition(r - 2, c);
                     if(r == 7){
                         if(board.getPiece(new ChessPosition(r - 1, c)) == null && board.getPiece(newPos) == null){
-                            moves.add(new ChessMove(myPosition, newPos, null, true));
+                            moves.add(new ChessMove(myPosition, newPos, null, true, false));
+                        }
+                    }
+                    // En Passant
+                    if(board.PassantPos() != null){
+                        newPos = new ChessPosition(board.PassantPos().getRow(), board.PassantPos().getColumn());
+                        if(r == 4 && (c == newPos.getColumn() - 1 || c == newPos.getColumn() + 1)){
+                            System.out.println("WHAAAA");
+                            moves.add(new ChessMove(myPosition, newPos, null, false, true));
                         }
                     }
                 }

@@ -95,8 +95,13 @@ public class ChessGame {
             board.setPassant(null);
             if(move.isPassant()){
                 int row = (move.getStartPosition().getRow() + move.getEndPosition().getRow()) / 2;
+                p("ROW?: " + row);
                 int col = move.getEndPosition().getColumn();
                 board.setPassant(new ChessPosition(row, col));
+            }
+            if(move.isPassantExecute()){
+                p("EXECUTE PASSANT!!!");
+                board.addPiece(new ChessPosition(move.getStartPosition().getRow(), move.getEndPosition().getColumn()), null);
             }
             var movingPiece = new ChessPiece(getTeamTurn(), move.getPromotionPiece() == null ? board.getPiece(move.getStartPosition()).getPieceType() : move.getPromotionPiece());
             board.addPiece(move.getStartPosition(), null);

@@ -22,6 +22,9 @@ public class ChessGame {
     public void p(String s){
         System.out.println(s);
     }
+
+
+
     /**
      * @return Which team's turn it is
      */
@@ -92,15 +95,18 @@ public class ChessGame {
             throw new InvalidMoveException("Invalid Move");
         }
         else {
-            board.setPassant(null);
-            if(move.isPassant()){
+            if(board.isDoingPassant()){
                 int row = (move.getStartPosition().getRow() + move.getEndPosition().getRow()) / 2;
                 p("ROW?: " + row);
                 int col = move.getEndPosition().getColumn();
+                p("COL?: " + col);
                 board.setPassant(new ChessPosition(row, col));
+                board.setDoingPassant(false);
+            } else {
+                board.setPassant(null);
             }
-            if(move.isPassantExecute()){
-                p("EXECUTE PASSANT!!!");
+            if(move.getEndPosition().equals(board.PassantPos())){
+                p("PAsant?");
                 board.addPiece(new ChessPosition(move.getStartPosition().getRow(), move.getEndPosition().getColumn()), null);
             }
             var movingPiece = new ChessPiece(getTeamTurn(), move.getPromotionPiece() == null ? board.getPiece(move.getStartPosition()).getPieceType() : move.getPromotionPiece());

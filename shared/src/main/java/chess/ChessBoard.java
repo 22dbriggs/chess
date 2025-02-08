@@ -15,6 +15,7 @@ public class ChessBoard {
 
     private ChessPiece[][] board;
     private ChessPosition enPassantTarget = null;
+    private boolean doPassant;
 
     public ChessBoard() {
         board = new ChessPiece[8][8];
@@ -132,6 +133,14 @@ public class ChessBoard {
 
     public void setPassant(ChessPosition pos){
         this.enPassantTarget = pos;
+    }
+
+    public boolean isDoingPassant() {
+        return doPassant;
+    }
+
+    public void setDoingPassant(boolean doPassant) {
+        this.doPassant = doPassant;
     }
 
     @Override

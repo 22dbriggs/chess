@@ -12,24 +12,12 @@ public class ChessMove {
 
     private ChessPosition startPosition, endPosition;
     private ChessPiece.PieceType promotionPiece;
-    private boolean passant, passantExecute;
 
     public ChessMove(ChessPosition startPosition, ChessPosition endPosition,
                      ChessPiece.PieceType promotionPiece) {
         this.startPosition = startPosition;
         this.endPosition = endPosition;
         this.promotionPiece = promotionPiece;
-        this.passant = false;
-        this.passantExecute = false;
-    }
-
-    public ChessMove(ChessPosition startPosition, ChessPosition endPosition,
-                     ChessPiece.PieceType promotionPiece, boolean passant, boolean passantExecute) {
-        this.startPosition = startPosition;
-        this.endPosition = endPosition;
-        this.promotionPiece = promotionPiece;
-        this.passant = passant;
-        this.passantExecute = passantExecute;
     }
 
     /**
@@ -54,14 +42,6 @@ public class ChessMove {
      */
     public ChessPiece.PieceType getPromotionPiece() {
         return this.promotionPiece;
-    }
-
-    public boolean isPassant(){
-        return this.passant;
-    }
-
-    public boolean isPassantExecute(){
-        return this.passantExecute;
     }
 
     @Override

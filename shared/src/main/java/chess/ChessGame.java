@@ -95,20 +95,6 @@ public class ChessGame {
             throw new InvalidMoveException("Invalid Move");
         }
         else {
-            if(board.isDoingPassant()){
-                int row = (move.getStartPosition().getRow() + move.getEndPosition().getRow()) / 2;
-                p("ROW?: " + row);
-                int col = move.getEndPosition().getColumn();
-                p("COL?: " + col);
-                board.setPassant(new ChessPosition(row, col));
-                board.setDoingPassant(false);
-            } else {
-                board.setPassant(null);
-            }
-            if(move.getEndPosition().equals(board.PassantPos())){
-                p("PAsant?");
-                board.addPiece(new ChessPosition(move.getStartPosition().getRow(), move.getEndPosition().getColumn()), null);
-            }
             var movingPiece = new ChessPiece(getTeamTurn(), move.getPromotionPiece() == null ? board.getPiece(move.getStartPosition()).getPieceType() : move.getPromotionPiece());
             board.addPiece(move.getStartPosition(), null);
             board.addPiece(move.getEndPosition(), movingPiece);
